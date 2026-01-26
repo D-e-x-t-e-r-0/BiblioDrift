@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BiblioDrift | Find yourself in the pages</title>
+    <link rel="stylesheet" href="style.css">
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;1,400&family=Georgia&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
+        integrity="sha512-9usAa10IRO0HhonpyAIVpjrylPvoDwiPUiKdWk5t3PyolY1cOd4DSE0Ga+ri4AuTroPR5aQvXU9xC6qOPnzFeg=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+</head>
+
+<body>
+
+    <header>
+        <a href="index.html" class="logo">
+            <i class="fa-solid fa-book-open"></i> BiblioDrift
+        </a>
+        <div class="header-controls">
+            <div class="search-bar">
+                <input type="text" id="searchInput" class="search-input" placeholder="Search for a feeling...">
+                <i class="fa-solid fa-search search-icon"></i>
+            </div>
+            <nav class="nav-links">
+                <a href="index.html" class="active">Discovery</a>
+                <a href="library.html">My Library</a>
+                <a href="auth.html">Sign In</a>
+            </nav>
+        </div>
+    </header>
+
+    <main>
+        <section class="hero">
+            <h1>Find yourself in the pages.</h1>
+            <p>A curated sanctuary for those who read through emotions.</p>
+        </section>
+
+        <!-- Curated Table 1 -->
+        <section class="curated-section">
+            <div class="section-header">
+                <h2>Rainy Evening Reads</h2>
+                <span><i class="fa-solid fa-cloud-rain"></i> Mystery & Melancholy</span>
+            </div>
+
+            <div class="curated-row" id="row-rainy">
+                <!-- Books injected by JS -->
+                <!-- Hardcoded example for structure reference during dev -->
+                <div class="book-scene">
+                    <div class="book">
+                        <div class="book__face book__face--front">
+                            <img src="https://books.google.com/books/content?id=uyr0DwAAQBAJ&printsec=frontcover&img=1&zoom=1&edge=curl&source=gbs_api"
+                                alt="Cover">
+                        </div>
+                        <div class="book__face book__face--spine"></div>
+                        <div class="book__face book_face--right"></div>
+                        <div class="book__face book__face--back">
+                            <div class="handwritten-note">
+                                "A quiet storm of a book. Best read with a blanket."
+                            </div>
+                            <div class="book-actions">
+                                <button class="btn-icon" title="Add to Library"><i
+                                        class="fa-regular fa-heart"></i></button>
+                                <button class="btn-icon" title="Read Details"><i class="fa-solid fa-info"></i></button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Curated Table 2 -->
+        <section class="curated-section">
+            <div class="section-header">
+                <h2>Indian Authors</h2>
+                <span><i class="fa-solid fa-feather"></i> Voices from the Subcontinent</span>
+            </div>
+            <div class="curated-row" id="row-indian">
+                <!-- JS will fill this -->
+            </div>
+        </section>
+
+        <!-- Curated Table 3 -->
+        <section class="curated-section">
+            <div class="section-header">
+                <h2>Forgotten Classics</h2>
+                <span><i class="fa-solid fa-hourglass"></i> Timeless & Dust-free</span>
+            </div>
+            <div class="curated-row" id="row-classics">
+                <!-- JS will fill this -->
+            </div>
+        </section>
+
+    </main>
+
+    <script src="app.js"></script>
+</body>
+
+</html>

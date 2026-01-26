@@ -1,0 +1,432 @@
+:root {
+    /* Palette: Cozy Bookstore */
+    --bg-color: #F9F7F2;
+    /* Warm Cream */
+    --text-main: #2C2420;
+    /* Dark Roast Coffee */
+    --text-muted: #6B5E55;
+    /* Old Paper */
+    --accent-gold: #D4AF37;
+    /* Gold Leaf */
+    --wood-dark: #5D4037;
+    /* Walnut Shelf */
+    --wood-light: #8D6E63;
+    /* Oak */
+    --glass-bg: rgba(255, 255, 255, 0.1);
+    --glass-border: rgba(255, 255, 255, 0.2);
+    --shadow-soft: 0 10px 30px rgba(0, 0, 0, 0.05);
+
+    /* Vibe Colors */
+    --vibe-mystery: #78909c;
+    --vibe-romance: #ef9a9a;
+    --vibe-classic: #a1887f;
+
+    /* Dimensions */
+    --book-width: 160px;
+    --book-height: 240px;
+    --book-thick: 40px;
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    background-color: var(--bg-color);
+    color: var(--text-main);
+    font-family: 'Georgia', serif;
+    /* Classic serif for books */
+    overflow-x: hidden;
+    min-height: 100vh;
+}
+
+h1,
+h2,
+h3 {
+    font-weight: normal;
+    font-family: 'Playfair Display', serif;
+    /* Elegant headings */
+}
+
+/* --- Layout --- */
+header {
+    padding: 2rem 4rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    background: rgba(249, 247, 242, 0.8);
+    backdrop-filter: blur(10px);
+}
+
+.header-controls {
+    display: flex;
+    align-items: center;
+    gap: 2rem;
+}
+
+.search-bar {
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+
+.search-input {
+    background: rgba(255, 255, 255, 0.5);
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    padding: 0.5rem 1rem;
+    border-radius: 20px;
+    font-family: 'Georgia', serif;
+    width: 200px;
+    transition: all 0.3s ease;
+    outline: none;
+    color: var(--text-main);
+}
+
+.search-input:focus {
+    background: #fff;
+    width: 300px;
+    box-shadow: var(--shadow-soft);
+}
+
+.search-icon {
+    position: absolute;
+    right: 10px;
+    color: var(--text-muted);
+    pointer-events: none;
+}
+
+.logo {
+    font-size: 1.5rem;
+    letter-spacing: 1px;
+    color: var(--text-main);
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.nav-links a {
+    text-decoration: none;
+    color: var(--text-muted);
+    margin-left: 2rem;
+    transition: color 0.3s ease;
+}
+
+.nav-links a:hover,
+.nav-links a.active {
+    color: var(--text-main);
+}
+
+main {
+    padding: 2rem 4rem;
+    max-width: 1400px;
+    margin: 0 auto;
+}
+
+/* --- Hero --- */
+.hero {
+    text-align: center;
+    padding: 4rem 0 6rem;
+}
+
+.hero h1 {
+    font-size: 4rem;
+    margin-bottom: 1rem;
+    font-style: italic;
+}
+
+.hero p {
+    color: var(--text-muted);
+    font-size: 1.1rem;
+}
+
+/* --- Curated Tables (Horizontal Scroll) --- */
+.curated-section {
+    margin-bottom: 6rem;
+}
+
+.section-header {
+    margin-bottom: 2rem;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+    padding-bottom: 0.5rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+}
+
+.curated-row {
+    display: flex;
+    gap: 3rem;
+    padding: 2rem 1rem;
+    overflow-x: visible;
+    /* Allow 3D overflow */
+    perspective: 1000px;
+}
+
+/* --- 3D Book Component --- */
+.book-scene {
+    width: var(--book-width);
+    height: var(--book-height);
+    perspective: 1000px;
+    cursor: pointer;
+    /* Random slight rotation for organic feel - handled in JS usually, but default here */
+}
+
+.book {
+    width: 100%;
+    height: 100%;
+    position: relative;
+    transform-style: preserve-3d;
+    /* Bouncy cozy feel */
+    transform-origin: center center -20px;
+    /* Pivot inside the book */
+    animation: floatIn 0.8s ease-out backwards;
+}
+
+@keyframes floatIn {
+    from {
+        opacity: 0;
+        transform: translateY(50px) scale(0.9);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+}
+
+.book.flipped {
+    transform: rotateY(180deg) scale(1.2) translateZ(50px);
+    /* Expand and bring closer */
+    z-index: 100;
+}
+
+/* Book Faces */
+.book__face {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    backface-visibility: hidden;
+    /* Hide back when front is clear */
+    border-radius: 4px 8px 8px 4px;
+    box-shadow: 5px 5px 15px rgba(0, 0, 0, 0.15);
+}
+
+.book__face--front {
+    background: #fff;
+    transform: rotateY(0deg);
+    z-index: 2;
+}
+
+.book__face--front img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 4px 8px 8px 4px;
+}
+
+.book__face--back {
+    transform: rotateY(180deg);
+    background: #fffdf9;
+    /* Paper color */
+    padding: 1.5rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    border: 1px solid #eee;
+    z-index: 1;
+}
+
+/* The Spine */
+.book__face--spine {
+    position: absolute;
+    width: var(--book-thick);
+    height: 100%;
+    left: 0;
+    top: 0;
+    transform: rotateY(-90deg) translateZ(calc(var(--book-thick) / 2));
+    /* Adjust spine logic: Needs to be anchored correctly. 
+       Actually, standard box model:
+       Front: translateZ(20px)
+       Back: translateZ(-20px)
+       Spine: rotateY(-90deg) translateZ(20px) ? 
+       
+       Let's use a simpler model: 
+       Pivot is center. Thickness is simulated or visual.
+       For "Pull out" effect we need simpler structure initially.
+    */
+}
+
+/* Improved 3D Box Model */
+/* Re-defining .book for proper thickness volume */
+.book {
+    transform-origin: center center -20px;
+    /* Pivot inside the book */
+}
+
+.book__face--front {
+    transform: translateZ(20px);
+}
+
+.book__face--back {
+    transform: rotateY(180deg) translateZ(20px);
+}
+
+.book__face--spine {
+    width: 40px;
+    height: 100%;
+    background: #333;
+    /* Default spine color */
+    transform: rotateY(-90deg) translateZ(20px);
+    /* Adjust positioning to be flush left of front face */
+    left: -20px;
+    /* Half thickness */
+}
+
+.book__face--right {
+    /* Pages */
+    width: 40px;
+    height: 100%;
+    background: linear-gradient(to right, #fff, #f0f0f0 20%, #fff 40%);
+    transform: rotateY(90deg) translateZ(140px);
+    /* Width - half thickness */
+    left: auto;
+    right: -20px;
+}
+
+/* Hover Effect: Pull out */
+.book-scene:hover .book:not(.flipped) {
+    transform: translateZ(30px) translateY(-10px) rotateY(-10deg);
+}
+
+/* Glassmorphism Overlay (Quick view) */
+.glass-overlay {
+    position: absolute;
+    bottom: 10px;
+    left: 10px;
+    right: 10px;
+    background: rgba(255, 255, 255, 0.7);
+    backdrop-filter: blur(8px);
+    padding: 0.5rem;
+    border-radius: 6px;
+    opacity: 0;
+    transform: translateY(10px);
+    transition: all 0.3s ease;
+    pointer-events: none;
+    /* Let clicks pass to book */
+}
+
+.book-scene:hover .glass-overlay {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* Back of book content */
+.handwritten-note {
+    font-family: 'Courier New', Courier, monospace;
+    /* Placeholder for handwriting font */
+    color: var(--text-muted);
+    font-size: 0.9rem;
+    line-height: 1.4;
+    background: #fffdc2;
+    padding: 10px;
+    transform: rotate(-2deg);
+    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.1);
+    margin-bottom: 1rem;
+}
+
+.book-actions {
+    display: flex;
+    gap: 0.5rem;
+}
+
+.btn-icon {
+    border: none;
+    background: none;
+    cursor: pointer;
+    font-size: 1.2rem;
+    opacity: 0.6;
+    transition: opacity 0.2s;
+}
+
+.btn-icon:hover {
+    opacity: 1;
+    transform: scale(1.1);
+}
+
+/* --- Virtual Shelves --- */
+.shelves-container {
+    display: flex;
+    flex-direction: column;
+    gap: 4rem;
+    padding: 2rem 0;
+}
+
+.shelf-row {
+    position: relative;
+    padding: 0 2rem 1.5rem 2rem;
+    /* Realistic Wood Texture Gradient */
+    background:
+        repeating-linear-gradient(90deg, transparent 0, transparent 4px, rgba(0, 0, 0, 0.02) 5px, transparent 10px),
+        linear-gradient(to bottom, #5D4037 0%, #3E2723 100%);
+    border-bottom: 25px solid #281A15;
+    /* Thicker front lip */
+    border-radius: 4px;
+    box-shadow:
+        0 20px 20px -10px rgba(0, 0, 0, 0.3),
+        inset 0 2px 20px rgba(0, 0, 0, 0.2);
+    display: flex;
+    align-items: flex-end;
+    gap: 1.5rem;
+    /* More spacing for expanded books */
+    min-height: 280px;
+}
+
+.shelf-row::after {
+    /* Depth shadow on wall behind books */
+    content: '';
+    position: absolute;
+    bottom: 25px;
+    /* Above bottom lip */
+    left: 0;
+    right: 0;
+    height: 100%;
+    z-index: -1;
+    background: linear-gradient(to bottom, rgba(0, 0, 0, 0.1), rgba(0, 0, 0, 0.4));
+    pointer-events: none;
+}
+
+.shelf-label {
+    position: absolute;
+    top: -20px;
+    left: 0;
+    font-size: 1.2rem;
+    color: var(--wood-light);
+    font-style: italic;
+}
+
+/* Utilities */
+.hidden {
+    display: none;
+}
+
+.fade-in {
+    animation: fadeIn 1s ease;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
